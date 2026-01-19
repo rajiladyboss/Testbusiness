@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Photographer Growth Game</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#0f172a;
+    color:#fff;
+    padding:20px;
+}
+.game-box{
+    max-width:750px;
+    margin:auto;
+    background:#020617;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 0 25px rgba(0,0,0,0.5);
+}
+h1{text-align:center;color:#38bdf8;}
+.progress{
+    background:#1e293b;
+    border-radius:20px;
+    overflow:hidden;
+    margin:15px 0;
+}
+.progress-bar{
+    height:10px;
+    width:0%;
+    background:#22c55e;
+}
+.question{margin-top:25px;}
+.option{
+    background:#1e293b;
+    padding:10px;
+    margin-bottom:10px;
+    border-radius:8px;
+}
+.option:hover{background:#334155;}
+button{
+    width:100%;
+    margin-top:12px;
+    padding:12px;
+    font-size:16px;
+    background:#22c55e;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+.result{
+    display:none;
+    margin-top:25px;
+    padding:20px;
+    border-radius:10px;
+}
+.level{font-size:22px;color:#38bdf8;}
+select{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border-radius:6px;
+}
+hr{border-color:#334155;margin:25px 0;}
+</style>
+</head>
+
+<body>
+
+<div class="game-box">
+
+<h1>📸 Photographer Growth Game</h1>
+<p style="text-align:center;color:#94a3b8;">
+Play this 2-minute game & discover your booking growth level
+</p>
+
+<div class="progress">
+<div id="progressBar" class="progress-bar"></div>
+</div>
+
+<form>
+
+<div class="question">
+<h3>🎯 Where do your enquiries mostly come from?</h3>
+<div class="option"><input type="radio" name="q1" value="1"> Mostly referrals</div>
+<div class="option"><input type="radio" name="q1" value="2"> Instagram organic</div>
+<div class="option"><input type="radio" name="q1" value="3"> Paid ads + organic</div>
+</div>
+
+<div class="question">
+<h3>⚡ How fast do you contact new leads?</h3>
+<div class="option"><input type="radio" name="q2" value="1"> After few hours / next day</div>
+<div class="option"><input type="radio" name="q2" value="2"> Within 1–2 hours</div>
+<div class="option"><input type="radio" name="q2" value="3"> Within 10–30 minutes</div>
+</div>
+
+<div class="question">
+<h3>🔥 After sharing pricing?</h3>
+<div class="option"><input type="radio" name="q3" value="1"> Client disappears</div>
+<div class="option"><input type="radio" name="q3" value="2"> One follow-up</div>
+<div class="option"><input type="radio" name="q3" value="3"> Proper follow-up system</div>
+</div>
+
+<div class="question">
+<h3>🚀 Your ad strategy?</h3>
+<div class="option"><input type="radio" name="q4" value="1"> No ads</div>
+<div class="option"><input type="radio" name="q4" value="2"> Boosted posts</div>
+<div class="option"><input type="radio" name="q4" value="3"> Funnel-based ads</div>
+</div>
+
+<div class="question">
+<h3>🏆 Booking confidence?</h3>
+<div class="option"><input type="radio" name="q5" value="1"> Not predictable</div>
+<div class="option"><input type="radio" name="q5" value="2"> Sometimes stable</div>
+<div class="option"><input type="radio" name="q5" value="3"> Predictable & scalable</div>
+</div>
+
+<button type="button" onclick="showResult()">Reveal My Growth Level</button>
+</form>
+
+<div id="result" class="result"></div>
+
+</div>
+
+<script>
+function showResult(){
+    let score=0;
+    for(let i=1;i<=5;i++){
+        let a=document.querySelector('input[name="q'+i+'"]:checked');
+        if(!a){alert("Please answer all questions");return;}
+        score+=parseInt(a.value);
+        document.getElementById("progressBar").style.width=(i/5)*100+"%";
+    }
+
+    let r=document.getElementById("result");
+    r.style.display="block";
+
+    let levelText="";
+    if(score<=7){
+        r.style.background="#7f1d1d";
+        levelText="🟥 Survival Mode – depending on luck & referrals";
+    }else if(score<=11){
+        r.style.background="#78350f";
+        levelText="🟨 Struggling Scale – missing systems";
+    }else{
+        r.style.background="#14532d";
+        levelText="🟩 Scale Ready – ready to grow faster";
+    }
+
+    r.innerHTML=`
+    <div class="level">${levelText}</div>
+
+    <hr>
+    <h3>💬 Are you interested in improving your digital marketing?</h3>
+
+    <button onclick="showYes()">✅ Yes, I’m interested</button>
+    <button onclick="showNo()" style="background:#64748b;">❌ Not now</button>
+
+    <div id="yesBox" style="display:none;margin-top:15px;">
+        <h4>📌 What do you need help with?</h4>
+        <label><input type="checkbox"> Consultation</label><br>
+        <label><input type="checkbox"> Lead Generation</label><br>
+        <label><input type="checkbox"> Brand Building</label><br>
+        <label><input type="checkbox"> All of the above</label>
+
+        <a href="https://wa.me/919080198927?text=Hi%20Raji%2C%20I%20completed%20the%20Photographer%20Growth%20Quiz%20and%20I%E2%80%99m%20interested%20in%20digital%20marketing%20support."
+        target="_blank">
+        <button style="background:#38bdf8;margin-top:10px;">
+        📲 Continue on WhatsApp
+        </button></a>
+    </div>
+
+    <div id="noBox" style="display:none;margin-top:15px;">
+        <p>🙏 Thanks for your honesty. What’s the reason?</p>
+        <select id="reason">
+            <option value="">Select your reason</option>
+            <option>Budget is tight right now</option>
+            <option>Not sure about ROI</option>
+            <option>Not priority at the moment</option>
+            <option>Need more clarity</option>
+            <option>Already working with someone</option>
+            <option>Just exploring</option>
+        </select>
+        <button onclick="submitNo()" style="background:#f59e0b;">Submit</button>
+    </div>
+    `;
+}
+
+function showYes(){
+    document.getElementById("yesBox").style.display="block";
+    document.getElementById("noBox").style.display="none";
+}
+
+function showNo(){
+    document.getElementById("noBox").style.display="block";
+    document.getElementById("yesBox").style.display="none";
+}
+
+function submitNo(){
+    let reason=document.getElementById("reason").value;
+    if(reason===""){alert("Please select a reason");return;}
+
+    let msg="Hi Raji, I completed the Photographer Growth Quiz. Reason for not moving ahead now: "+reason;
+    let url="https://wa.me/919080198927?text="+encodeURIComponent(msg);
+    window.open(url,"_blank");
+}
+</script>
+
+</body>
+</html>
